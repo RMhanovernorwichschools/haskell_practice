@@ -1,0 +1,6 @@
+1-4 show how to MOVE WORK TO GITHUB
+
+1. git status (tells you what's new here)
+2. git add <filename(s)> (can type "add ." for all)
+3. git commit -m 'commit message/desc
+4. git push (finalizes all this, but requires username and password)
