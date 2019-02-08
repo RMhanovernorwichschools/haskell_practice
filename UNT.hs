@@ -8,8 +8,11 @@ check w = if (lowercase w=="not" || lowercase w=="no") then "Negation" else
         if (elem (lowercase w) ["food", "breakfast", "snack", "lunch", "dinner", "meal"]) then "TOP_Eating" else
         if (elem (lowercase w) ["hungry", "starving", "stomach"]) then "TOP_Hunger" else
         if (elem (lowercase w) ["joy", "joyous", "great", "awesome", "finally"]) then "TNM_Celebrate" else
+        if (elem (lowercase w) ["tired", "sleepy", "fatigued", "exhausted"]) then "TNM_Tired" else
         "none"
-flavor l = (if elem "TNM_Celebrate" [check x | x<-(wordify l)] then "Yeah! " else "") ++
+flavor l = (if elem "TNM_Celebrate" [check x | x<-(wordify l)] then "Yeah! " else 
+        if elem "TNM_Tired" [check x | x<-(wordify l)] then "You're really working. " else 
+        "") ++
         --These are the topic-specific statements which are probably the meat, for this function.
         (if (elem "TOP_Hunger" [check x | x<-(wordify l)]) && (elem "TOP_Eating" [check x | x<-(wordify l)]) then "Have something. I'll keep you company" else
         if (elem "TOP_School" [check x | x<-(wordify l)]) && (elem "TOP_Eating" [check x | x<-(wordify l)]) then "I wonder if the cafeteria food is any good" else
