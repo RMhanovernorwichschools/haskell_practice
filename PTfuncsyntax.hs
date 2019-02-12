@@ -124,7 +124,23 @@ iVal p r n = (iVal p r (n-1)) ++ [(a*(1+0.01*r))]
 -}
 
 charToPhoneDigit :: Char -> Int
-charToPhoneDigit c = 0 -- put your code here
+charToPhoneDigit c 
+  | abc = 2 -- put your code here
+  | def = 3
+  | ghi = 4
+  | jkl = 5
+  | mno = 6
+  | pqrs = 7
+  | tuv = 8
+  | wxyz = 9
+  where abc = elem c "abcABC"
+        def = elem c "defDEF"
+        ghi = elem c "ghiGHI"
+        jkl = elem c "jklJKL"
+        mno = elem c "mnoMNO"
+        pqrs = elem c "pqrsPQRS"
+        tuv = elem c "tuvTUV"
+        wxyz = elem c "wxyzWXYZ"
 
 
 {-
