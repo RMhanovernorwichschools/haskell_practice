@@ -99,10 +99,13 @@ yoCount s = yoCount (tail s) -- a string that doesn't start with "yo" or "Yo". W
 -}
 
 interestTable :: (Eq a, Integral a1, Num a, RealFrac a2) => a2 -> a2 -> a -> [a1]
-interestTable p r 0 = []
-interestTable p r 1 = [p*(1+0.01*r)]
---interestTable p r n = reverse ((last (interestTable p r n-1) * (1+0.01*r)):(interestTable p r n-1))  -- your function here (may need more patterns!)
+interestTable p r 0 = [round p]
+interestTable p r n = [round x | x<- iVal p r n]
 
+iVal :: (Eq a, Num a, RealFrac a1) => a1 -> a1 -> a -> [a1]
+iVal p r 0 = [p]
+iVal p r n = (iVal p r (n-1)) ++ [(a*(1+0.01*r))] 
+  where a = (last (iVal p r (n-1)))
 
 
 {- 
