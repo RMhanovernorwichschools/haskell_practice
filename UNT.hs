@@ -1,5 +1,12 @@
 phrase x = if x==True then "Yeah." else "I don't think so..."
 
+
+idSpaces :: [Char] -> [Int]
+wordify :: String -> [[Char]]
+check :: [Char] -> [Char]
+lowify :: Char -> [Char]
+lowercase :: [Char] -> [Char]
+
 idSpaces l = [x | x<- [0..(length l -1)], l!!x==' ']
 wordify l = [[ l!!x | x <- [(([0]++idSpaces l )!!a)..((idSpaces l ++[(length l - 1)])!!a)], l!!x/=' ', not(elem (l!!x) (['['..'`']++[':'..'@']++".,?{}+-~!"))] | a<- [0..length (idSpaces l)] ]
 
@@ -10,6 +17,7 @@ check w = if (lowercase w=="not" || lowercase w=="no") then "Negation" else
         if (elem (lowercase w) ["joy", "joyous", "great", "awesome", "finally"]) then "TNM_Celebrate" else
         if (elem (lowercase w) ["tired", "sleepy", "fatigued", "exhausted"]) then "TNM_Tired" else
         "none"
+flavor :: [Char] -> [Char]
 flavor l = (if elem "TNM_Celebrate" [check x | x<-(wordify l)] then "Yeah! " else 
         if elem "TNM_Tired" [check x | x<-(wordify l)] then "You're really working. " else 
         "") ++

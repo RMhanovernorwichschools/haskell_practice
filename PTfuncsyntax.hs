@@ -155,7 +155,9 @@ charToPhoneDigit c
 
 
 numListToNum :: [Int] -> Int
-numListToNum nums = 0 -- put your code here (more patterns needed?)
+numListToNum [] = 0 
+numListToNum (x:[]) = x
+numListToNum (x:xs) = numListToNum xs + (x* 10^(length xs))
 
 
 {- 
@@ -175,4 +177,4 @@ numListToNum nums = 0 -- put your code here (more patterns needed?)
 -}
 
 wordsToPhone :: String -> Int
-wordsToPhone w = 0 -- put your code here
+wordsToPhone w = numListToNum [ charToPhoneDigit x | x<- w, elem x (['a'..'z']++['A'..'Z'])]
