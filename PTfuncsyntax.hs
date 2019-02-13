@@ -99,7 +99,6 @@ yoCount s = yoCount (tail s) -- a string that doesn't start with "yo" or "Yo". W
 -}
 
 interestTable :: (Eq a, Integral a1, Num a, RealFrac a2) => a2 -> a2 -> a -> [a1]
-interestTable p r 0 = [round p]
 interestTable p r n = [round x | x<- iVal p r n]
 
 iVal :: (Eq a, Num a, RealFrac a1) => a1 -> a1 -> a -> [a1]
