@@ -11,11 +11,12 @@ idSpaces l = [x | x<- [0..(length l -1)], l!!x==' ']
 wordify l = [[ l!!x | x <- [(([0]++idSpaces l )!!a)..((idSpaces l ++[(length l - 1)])!!a)], l!!x/=' ', not(elem (l!!x) (['['..'`']++[':'..'@']++".,?{}+-~!"))] | a<- [0..length (idSpaces l)] ]
 
 check w 
-        | (lowercase w=="not" || lowercase w=="no") = "Negation"
+        | (lowercase w=="not" || lowercase w=="no" || lowercase w=="don't") = "Negation"
         | find ["school", "schools", "homework", "hw", "class", "classwork", "schoolwork"] = "TOP_School"
         | find ["food", "breakfast", "snack", "lunch", "dinner", "meal"] = "TOP_Eating"
         | find ["hungry", "starving", "stomach"] = "TOP_Hunger"
         | find ["math", "mathematics", "calc", "calculus", "algebra", "alg", "decimal", "decimals", "fractions", "fraction", "multiplication", "exponent", "exponents", "division"] = "TOP_Math"
+        | find ["work", "assignment", "job", "working", "project", "assignments", "projects"] = "TOP_Workproj"
         | find ["joy", "joyous", "great", "awesome", "finally", "excited", "thrilled", "thrill"] = "TNM_Celebrate"
         | find ["tired", "sleepy", "fatigued", "exhausted"] = "TNM_Tired"
         | otherwise = "none"
@@ -27,10 +28,14 @@ flavor l = let find a = elem a [check x | x<-(wordify l)] in
         "") ++
         --These are the topic-specific statements which are probably the meat, for this function.
         (if (find "TOP_Math" && find "TOP_School") then "It's awesome that you can take math courses" else
+        if (find "TOP_Workproj" && find "TOP_School") then "School can be busy, huh" else
         if (find "TOP_Hunger" && find "TOP_Eating") then "Have something. I'll keep you company" else
         if (find "TOP_School" && find "TOP_Eating") then "I wonder if the cafeteria food is any good" else
+        if (find "TOP_Workproj" && find "TOP_Math") then "Mathy stuff can be really fun" else
+        if (find "TOP_Workproj" && (find "TOP_Eating" || find "TOP_Hunger")) then "Take care of yourself" else
         if find "TOP_School" then "Try to have fun at class, maybe" else
         if find "TOP_Hunger" then "Since you need organic fuel? That sounds cool" else
+        if find "TOP_Workproj" then "You're kind of awesomely productive" else
         if find "TOP_Math" then "I love math" else
         if find "TOP_Eating" then "Don't feel too hungry. Food awaits" else
         "I dunno") ++
