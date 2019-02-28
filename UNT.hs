@@ -1,6 +1,5 @@
 phrase x = if x==True then "Yeah." else "I don't think so..."
 
-
 idSpaces :: [Char] -> [Int]
 wordify :: String -> [[Char]]
 check :: [Char] -> [Char]
@@ -12,6 +11,7 @@ wordify l = [[ l!!x | x <- [(([0]++idSpaces l )!!a)..((idSpaces l ++[(length l -
 
 check w 
         | (lowercase w=="not" || lowercase w=="no" || lowercase w=="don't") = "Negation"
+        | find ["hi", "hello", "heya", "greetings"] = "Greeting"
         | find ["school", "schools", "homework", "hw", "class", "classwork", "schoolwork"] = "TOP_School"
         | find ["food", "breakfast", "snack", "lunch", "dinner", "meal"] = "TOP_Eating"
         | find ["hungry", "starving", "stomach"] = "TOP_Hunger"
@@ -41,7 +41,13 @@ flavor l = let find a = elem a [check x | x<-(wordify l)] in
         "I dunno") ++
         --This is additional comment stuff to do with miscellaneous
         (if find "Negation" then ", but I don't know. I'm probably wrong." else 
+        if find "Greeting" then ", and it's nice that you're here." else 
         if last l == '!' then "!" else ".")
 
 lowify l = [ ['a'..'z']!!n | n<- [0..25], l==['A'..'Z']!!n]
 lowercase x = [ if x `elem` ['A'..'Z'] then ((lowify x)!!0) else x | x<- x]
+
+perform = do
+        putStrLn "Um, hi. This is January."
+        resp <- getLine
+        putStrLn (flavor resp)
